@@ -56,5 +56,8 @@ namespace Domain.Entities
         public string City { get; private set; }
         public string ZipPostCode { get; private set; }
         public string State { get; private set; }
+
+        public int StudentId { get; set; }
+        public Student Student { get; set; }
     }
 }

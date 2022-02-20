@@ -52,5 +52,8 @@ namespace Domain.Entities
         public PhoneType PhoneType { get; private set; }
         public string CountryCode { get; private set; }
         public string AreaCode { get; private set; }
+
+        public int StudentId { get; set; }
+        public Student Student { get; set; }
     }
 }

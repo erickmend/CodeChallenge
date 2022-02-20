@@ -48,5 +48,8 @@ namespace Domain.Entities
 
         public string email { get; private set; }
         public EmailType EmailType { get; private set; }
+
+        public int StudentId { get; set; }
+        public Student Student { get; set; }
     }
 }
