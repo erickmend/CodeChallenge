@@ -55,10 +55,10 @@ namespace Domain.Entities
             };
         }
 
-        public string LastName { get; set; }
-        public string MiddleName { get; set; }
-        public string FirstName { get; set; }
-        public Gender Gender { get; set; }
+        public string LastName { get; private set; }
+        public string MiddleName { get; private set; }
+        public string FirstName { get; private set; }
+        public Gender Gender { get; private set; }
 
         public List<Email> Emails { get; set; }
         public List<Address> Addresses { get; set; }

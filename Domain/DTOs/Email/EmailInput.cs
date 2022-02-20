@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace Domain.DTOs.Email
 {
-    public class EmailOutput
+    public class EmailInput
     {
-        public int Id { get; set; }
-        public string email { get; set; }
-        public EmailType EmailType { get; set; }
+        public string email { get;   set; }
+        public EmailType EmailType { get;   set; }
     }
 }

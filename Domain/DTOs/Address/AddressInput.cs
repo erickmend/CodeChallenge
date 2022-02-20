@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.DTOs.Address
 {
-    public class AddressOutput
+    public class AddressInput
     {
-        public int Id { get; set; }
         public string AddressLine { get; set; }
         public string City { get; set; }
         public string ZipPostCode { get; set; }

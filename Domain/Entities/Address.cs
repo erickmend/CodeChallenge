@@ -7,17 +7,53 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Address: Entity
+    public class Address : Entity
     {
+
+        public Address() { }
+        public Address(AddressInput dto)
+        {
+
+        }
+
+        private void Create(AddressInput dto)
+        {
+            AddressLine = dto.AddressLine;
+            City = dto.City;
+            ZipPostCode = dto.ZipPostCode;
+            State = dto.State;
+
+
+            CreateEntity();
+        }
+
+        public void Edit(AddressInput dto)
+        {
+            AddressLine = dto.AddressLine;
+            City = dto.City;
+            ZipPostCode = dto.ZipPostCode;
+            State = dto.State;
+
+
+            EditEntity();
+        }
 
 
         public AddressOutput ToOutput()
         {
             return new AddressOutput
             {
-
+                Id = Id,
+                AddressLine = AddressLine,
+                City = City,
+                ZipPostCode = ZipPostCode,
+                State = State
             };
         }
 
+        public string AddressLine { get; private set; }
+        public string City { get; private set; }
+        public string ZipPostCode { get; private set; }
+        public string State { get; private set; }
     }
 }
