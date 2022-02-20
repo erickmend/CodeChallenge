@@ -1,4 +1,7 @@
+using Core.Logic;
 using Domain.Data;
+using Domain.Entities;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +31,11 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IGenericRepository<Student>, StudentRepository>();
+            services.AddScoped<IGenericRepository<Phone>, PhoneRepository>();
+            services.AddScoped<IGenericRepository<Address>, AddressRepository>();
+            services.AddScoped<IGenericRepository<Email>, EmailRepository>();
+
             services.AddDbContext<DBContext>(opt =>
             {
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
