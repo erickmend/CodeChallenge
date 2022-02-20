@@ -13,6 +13,7 @@ namespace Domain.Entities
         public Address() { }
         public Address(AddressInput dto)
         {
+            Create(dto);
 
         }
 

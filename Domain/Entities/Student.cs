@@ -13,6 +13,7 @@ namespace Domain.Entities
         public Student() { }
         public Student(StudentInput dto)
         {
+            Create(dto);
 
         }
 

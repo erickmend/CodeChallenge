@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Enums
 {
-    public enum  PhoneType
+    public enum PhoneType
     {
+        Personal = 1,
+        Work = 2,
+        Professional = 3,
+        Parent = 4
     }
 }

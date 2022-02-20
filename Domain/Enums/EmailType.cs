@@ -8,5 +8,9 @@ namespace Domain.Enums
 {
     public enum EmailType
     {
+        Personal = 1,
+        Work = 2,
+        Professional = 3,
+        Parent = 4
     }
 }

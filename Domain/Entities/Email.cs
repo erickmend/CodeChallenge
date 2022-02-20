@@ -15,7 +15,7 @@ namespace Domain.Entities
         public Email() { }
         public Email(EmailInput dto)
         {
-
+            Create(dto);
         }
 
         private void Create(EmailInput dto)
