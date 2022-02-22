@@ -1,3 +1,10 @@
+using Core.Logic.Application;
+using Domain.DTOs.Address;
+using Domain.DTOs.Email;
+using Domain.DTOs.Phone;
+using Domain.DTOs.Student;
+using Domain.Entities;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -23,6 +30,10 @@ namespace Application
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IGenericRepositoryAPP<StudentInput>, StudentRepository>();
+            services.AddScoped<IGenericRepositoryAPP<PhoneInput>, PhoneRepository>();
+            services.AddScoped<IGenericRepositoryAPP<AddressInput>, AddressRepository>();
+            services.AddScoped<IGenericRepositoryAPP<EmailInput>, EmailRepository>();
             services.AddControllersWithViews();
         }
 

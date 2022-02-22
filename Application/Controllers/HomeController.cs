@@ -1,4 +1,6 @@
 ﻿using Application.Models;
+using Domain.DTOs.Student;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,14 +14,35 @@ namespace Application.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IGenericRepositoryAPP<StudentInput> _studentRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IGenericRepositoryAPP<StudentInput> studentRepository)
         {
             _logger = logger;
+            _studentRepository = studentRepository;
+
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
+            var input = new StudentInput
+            {
+                FirstName = "Juan",
+                LastName = "Quintero",
+                MiddleName = "si",
+                Gender = Domain.Enums.Gender.Male
+            };
+
+            var response = await _studentRepository.Add(input);
+            if (response.IsCompleted)
+            {
+                return Ok(response.Result);
+            }
+            else
+            {
+                return BadRequest(response.Result);
+            }
+
             return View();
         }
 
