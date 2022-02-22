@@ -11,19 +11,21 @@ namespace Domain.Entities
     public class Phone : Entity
     {
         public Phone() { }
-        public Phone(PhoneInput dto)
+        public Phone(int studentId, Student student, PhoneInput dto)
         {
-            Create(dto);
-
+            Create(studentId, student, dto);
         }
-        private void Create(PhoneInput dto)
+        private void Create(int studentId, Student student, PhoneInput dto)
         {
             phone = dto.phone;
             PhoneType = dto.PhoneType;
             CountryCode = dto.CountryCode;
             AreaCode = dto.AreaCode;
-
+            StudentId = studentId;
             CreateEntity();
+
+
+            student.Phones.Add(this);
         }
 
         public void Edit(PhoneInput dto)

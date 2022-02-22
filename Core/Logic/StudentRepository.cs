@@ -27,7 +27,7 @@ namespace Core.Logic
         public async Task<int> Update(Student entity)
         {
             _context.Students.Attach(entity);
-            _context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Entry(entity).State = EntityState.Modified;
             return await _context.SaveChangesAsync();
         }
 

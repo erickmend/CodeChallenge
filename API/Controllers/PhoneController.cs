@@ -16,10 +16,12 @@ namespace API.Controllers
     public class PhoneController : ControllerBase
     {
         private readonly IGenericRepository<Phone> _phoneRepository;
+        private readonly IGenericRepository<Student> _studentRepository;
 
-        public PhoneController(IGenericRepository<Phone> phoneRepository)
+        public PhoneController(IGenericRepository<Phone> phoneRepository, IGenericRepository<Student> studentRepository)
         {
             _phoneRepository = phoneRepository;
+            _studentRepository = studentRepository;
         }
 
         [HttpGet]
@@ -44,9 +46,15 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<PhoneOutput>> Post(PhoneInput dto)
+        public async Task<ActionResult<PhoneOutput>> Post(int studentId , PhoneInput dto)
         {
-            var entity = new Phone(dto);
+            var student = await _studentRepository.GetByIdAsync(studentId);
+            if (student == null)
+            {
+                return NotFound(new CodeErrorResponse(404));
+            }
+
+            var entity = new Phone(studentId, student ,dto);
             var response = await _phoneRepository.Add(entity);
             if (response == 0)
             {
