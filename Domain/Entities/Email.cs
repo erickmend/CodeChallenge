@@ -13,17 +13,20 @@ namespace Domain.Entities
 
 
         public Email() { }
-        public Email(EmailInput dto)
+        public Email(int studentId, Student student, EmailInput dto)
         {
-            Create(dto);
+            Create(studentId, student, dto);
         }
 
-        private void Create(EmailInput dto)
+        private void Create(int studentId, Student student, EmailInput dto)
         {
 
             email = dto.email;
             EmailType = dto.EmailType;
+            StudentId = studentId;
+
             CreateEntity();
+            student.Emails.Add(this);
         }
 
         public void Edit(EmailInput dto)

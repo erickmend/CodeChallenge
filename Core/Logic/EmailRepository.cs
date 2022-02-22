@@ -1,6 +1,7 @@
 ﻿using Domain.Data;
 using Domain.Entities;
 using Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,28 +18,38 @@ namespace Core.Logic
         {
             _context = context;
         }
-        public Task<int> Add(Email entity)
+        public async Task<int> Add(Email entity)
         {
-            throw new NotImplementedException();
+            _context.Emails.Add(entity);
+            return await _context.SaveChangesAsync();
+        }
+        public async Task<int> Update(Email entity)
+        {
+            _context.Emails.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
+            return await _context.SaveChangesAsync();
+        }
+        public async Task<IReadOnlyList<Email>> GetAllAsync()
+        {
+            return await _context.Emails
+               .ToListAsync();
         }
 
-        public Task<IReadOnlyList<Email>> GetAllAsync()
+        public async Task<Email> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Emails
+                .FirstOrDefaultAsync(x => x.Id.Equals(id));
         }
 
-        public Task<Email> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task<int> Update(Email entity)
+        public async Task<int> Delete(int id)
         {
-            throw new NotImplementedException();
-        }
-        public Task<int> Delete(int id)
-        {
-            throw new NotImplementedException();
+            var entity = await _context.Emails.FirstOrDefaultAsync(x => x.Id.Equals(id));
+            if (entity == null)
+                return 0;
+
+            _context.Emails.Remove(entity);
+            return await _context.SaveChangesAsync();
         }
     }
 }

@@ -16,10 +16,12 @@ namespace API.Controllers
     public class EmailController : ControllerBase
     {
         private readonly IGenericRepository<Email> _EmailRepository;
+        private readonly IGenericRepository<Student> _studentRepository;
 
-        public EmailController(IGenericRepository<Email> EmailRepository)
+        public EmailController(IGenericRepository<Email> EmailRepository, IGenericRepository<Student> studentRepository)
         {
             _EmailRepository = EmailRepository;
+            _studentRepository = studentRepository;
         }
 
         [HttpGet]
@@ -44,9 +46,15 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<EmailOutput>> Post(EmailInput dto)
+        public async Task<ActionResult<EmailOutput>> Post(int studentId, EmailInput dto)
         {
-            var entity = new Email(dto);
+            var student = await _studentRepository.GetByIdAsync(studentId);
+            if (student == null)
+            {
+                return NotFound(new CodeErrorResponse(404));
+            }
+
+            var entity = new Email(studentId, student ,dto);
             var response = await _EmailRepository.Add(entity);
             if (response == 0)
             {
