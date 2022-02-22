@@ -11,21 +11,21 @@ namespace Domain.Entities
     {
 
         public Address() { }
-        public Address(AddressInput dto)
+        public Address(int studentId, Student student, AddressInput dto)
         {
-            Create(dto);
-
+            Create(studentId, student, dto);
         }
 
-        private void Create(AddressInput dto)
+        private void Create(int studentId, Student student, AddressInput dto)
         {
             AddressLine = dto.AddressLine;
             City = dto.City;
             ZipPostCode = dto.ZipPostCode;
             State = dto.State;
-
+            StudentId = studentId;
 
             CreateEntity();
+            student.Addresses.Add(this);
         }
 
         public void Edit(AddressInput dto)

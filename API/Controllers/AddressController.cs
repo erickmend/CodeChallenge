@@ -16,10 +16,12 @@ namespace API.Controllers
     public class AddressController : ControllerBase
     {
         private readonly IGenericRepository<Address> _AddressRepository;
+        private readonly IGenericRepository<Student> _studentRepository;
 
-        public AddressController(IGenericRepository<Address> AddressRepository)
+        public AddressController(IGenericRepository<Address> AddressRepository, IGenericRepository<Student> studentRepository)
         {
             _AddressRepository = AddressRepository;
+            _studentRepository = studentRepository;
         }
 
         [HttpGet]
@@ -44,9 +46,14 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<AddressOutput>> Post(AddressInput dto)
+        public async Task<ActionResult<AddressOutput>> Post(int studentId, AddressInput dto)
         {
-            var entity = new Address(dto);
+            var student = await _studentRepository.GetByIdAsync(studentId);
+            if (student == null)
+            {
+                return NotFound(new CodeErrorResponse(404));
+            }
+            var entity = new Address(studentId,student,dto);
             var response = await _AddressRepository.Add(entity);
             if (response == 0)
             {

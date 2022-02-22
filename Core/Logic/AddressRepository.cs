@@ -1,6 +1,7 @@
 ﻿using Domain.Data;
 using Domain.Entities;
 using Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,28 +18,38 @@ namespace Core.Logic
         {
             _context = context;
         }
-        public Task<int> Add(Address entity)
+        public async Task<int> Add(Address entity)
         {
-            throw new NotImplementedException();
+            _context.Addresses.Add(entity);
+            return await _context.SaveChangesAsync();
+        }
+        public async Task<int> Update(Address entity)
+        {
+            _context.Addresses.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
+            return await _context.SaveChangesAsync();
         }
 
-        public Task<IReadOnlyList<Address>> GetAllAsync()
+        public async Task<IReadOnlyList<Address>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Addresses
+               .ToListAsync();
         }
 
-        public Task<Address> GetByIdAsync(int id)
+        public async Task<Address> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Addresses
+                 .FirstOrDefaultAsync(x => x.Id.Equals(id));
         }
 
-        public Task<int> Update(Address entity)
+        public async Task<int> Delete(int id)
         {
-            throw new NotImplementedException();
-        }
-        public Task<int> Delete(int id)
-        {
-            throw new NotImplementedException();
+            var entity = await _context.Addresses.FirstOrDefaultAsync(x => x.Id.Equals(id));
+            if (entity == null)
+                return 0;
+
+            _context.Addresses.Remove(entity);
+            return await _context.SaveChangesAsync();
         }
     }
 }
