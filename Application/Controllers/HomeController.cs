@@ -1,4 +1,5 @@
-﻿using Application.Models;
+﻿using Application.Extensions;
+using Application.Models;
 using Domain.DTOs.Errors;
 using Domain.DTOs.Student;
 using Domain.Enums;
@@ -49,21 +50,22 @@ namespace Application.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(StudentInput dto)
         {
-            if (!ModelState.IsValid)
-            {
-                FillViewBag(dto.Gender);
-                return View(dto);
-            }
-            var response = await _studentRepository.Add(dto);
-
-            if (response.IsCompleted)
-            {
-                //change to redirect
-                return View(response.Result);
-            }
             FillViewBag(dto.Gender);
 
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return View(dto)
+                    .WithDanger("Error", "Porfavor llena los campos faltantes", "Aceptar");
+            }
+
+            var response = await _studentRepository.Add(dto);
+            if (response.IsCompleted)
+            {
+                return RedirectToAction("Index")
+                    .WithSuccess("Éxito", "Estudiante creado", "Aceptar");
+            }
+            return View(dto)
+              .WithDanger("Error", "Porfavor llena los campos faltantes", "Aceptar");
         }
 
 

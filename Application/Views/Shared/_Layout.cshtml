@@ -6,6 +6,8 @@
     <title>@ViewData["Title"] - Application</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/sweetalert2.css" rel="stylesheet" />
+    <script src="~/js/sweetalert2.js"></script>
 </head>
 <body>
     <header>
@@ -31,6 +33,7 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            <partial name="_Alerts" />
             @RenderBody()
         </main>
     </div>

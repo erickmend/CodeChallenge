@@ -1,0 +1,36 @@
+﻿@{
+    var type = (string)TempData["_alert.type"];
+    var title = (string)TempData["_alert.title"];
+    var body = (string)TempData["_alert.body"];
+    var buttonText = (string)TempData["_alert.buttonText"];
+}
+
+<meta charset="UTF-8">
+<style>
+    .swal2-title {
+        font-family: Arial;
+        margin-bottom:10px;
+    }
+    #swal2-content {
+        font-family: Arial;
+        font-size: 24px;
+    }
+
+</style>
+@if (!string.IsNullOrEmpty(type))
+{
+    <script>
+        Swal.fire({
+            icon: '@type',
+            title: '@Html.Raw(title)',
+            text: '@Html.Raw(body)',
+            showConfirmButton: true,
+            confirmButtonText: '@buttonText',
+            confirmButtonColor: '#00A1E1',
+            position: "center",
+            showCloseButton: true,
+            width: 630,
+            padding: 80,
+        })
+    </script>
+}
