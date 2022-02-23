@@ -64,8 +64,10 @@ namespace Application.Controllers
                 return RedirectToAction("Index")
                     .WithSuccess("Éxito", "Estudiante creado", "Aceptar");
             }
+
+            var output = (CodeErrorResponse)response.Result;
             return View(dto)
-              .WithDanger("Error", "Porfavor llena los campos faltantes", "Aceptar");
+              .WithDanger("Error", output.ErrorMessageSpanish, "Aceptar");
         }
 
 
@@ -82,7 +84,8 @@ namespace Application.Controllers
             else
             {
                 var output = (CodeErrorResponse)response.Result;
-                return View();
+                return RedirectToAction("Index")
+                   .WithDanger("Error", output.ErrorMessageSpanish, "Aceptar");
             }
 
         }
@@ -92,14 +95,27 @@ namespace Application.Controllers
             FillViewBag(dto.Gender);
             if (!ModelState.IsValid)
             {
-                return View(dto);
+                var outputError = new StudentOutput
+                {
+                    FirstName = dto.FirstName,
+                    LastName = dto.LastName,
+                    Gender = dto.Gender,
+                    MiddleName = dto.MiddleName,
+                    Id = id
+                };
+
+                return View(outputError)
+                    .WithDanger("Error", "Porfavor llena los campos faltantes", "Aceptar");
             }
             var response = await _studentRepository.Update(id, dto);
             if (response.IsCompleted)
             {
-                return View(response.Result);
+                return RedirectToAction("Index")
+                    .WithSuccess("Éxito", "Estudiante editado", "Aceptar");
             }
-            return View();
+            var output = (CodeErrorResponse)response.Result;
+            return RedirectToAction("Index")
+               .WithDanger("Error", output.ErrorMessageSpanish, "Aceptar");
         }
 
         [HttpGet]
@@ -115,7 +131,8 @@ namespace Application.Controllers
             else
             {
                 var output = (CodeErrorResponse)response.Result;
-                return View();
+                return RedirectToAction("Index")
+                   .WithDanger("Error", output.ErrorMessageSpanish, "Aceptar");
             }
         }
 
@@ -133,7 +150,8 @@ namespace Application.Controllers
             else
             {
                 var output = (CodeErrorResponse)response.Result;
-                return View();
+                return RedirectToAction("Index")
+                   .WithDanger("Error", output.ErrorMessageSpanish, "Aceptar");
             }
 
         }
@@ -143,9 +161,13 @@ namespace Application.Controllers
             var response = await _studentRepository.Delete(id);
             if (response.IsCompleted)
             {
-                return View(response.Result);
+                return RedirectToAction("Index")
+                   .WithDanger("Éxito", "Estudiante eliminado", "Aceptar");
             }
-            return View();
+
+            var output = (CodeErrorResponse)response.Result;
+            return RedirectToAction("Index")
+               .WithDanger("Error", output.ErrorMessageSpanish, "Aceptar");
         }
 
 
@@ -160,16 +182,6 @@ namespace Application.Controllers
                 new KeyValueItem{ Value = 3, Text = "Otro" },
             };
             ViewBag.Genders = new SelectList(genders, "Value", "Text", gender);
-        }
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
