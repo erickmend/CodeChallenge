@@ -59,7 +59,11 @@ namespace API.Controllers
             var response = await _phoneRepository.Add(entity);
             if (response == 0)
             {
-                return BadRequest(new CodeErrorResponse(404));
+                return BadRequest(new CodeErrorResponse(500));
+            }
+            if (response != 1)
+            {
+                return BadRequest(new CodeErrorResponse(response));
             }
             var output = entity.ToOutput();
 

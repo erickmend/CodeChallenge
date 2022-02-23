@@ -20,6 +20,9 @@ namespace Core.Logic
         }
         public async Task<int> Add(Email entity)
         {
+            if (_context.Emails.Any(x => x.email == entity.email))
+                return 501;
+
             _context.Emails.Add(entity);
             return await _context.SaveChangesAsync();
         }

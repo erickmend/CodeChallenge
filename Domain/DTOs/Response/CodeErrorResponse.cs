@@ -27,6 +27,8 @@ namespace Domain.DTOs.Errors
                 401 => "No tienes autorización para este recurso",
                 404 => "El recurso no se encontró",
                 500 => "Se produjo errores en el servidor",
+
+                501 => "Ya hay un campo con los valores ingresados",
                 _ => throw new System.NotImplementedException()
             };
         }
@@ -39,6 +41,8 @@ namespace Domain.DTOs.Errors
                 401 => "You dont have access",
                 404 => "The resource does not exist",
                 500 => "There are some errors in the server",
+
+                501 => "Ya hay un campo con los valores ingresados",
                 _ => throw new System.NotImplementedException()
             };
         }

@@ -20,6 +20,9 @@ namespace Core.Logic
         }
         public async Task<int> Add(Phone entity)
         {
+            if (_context.Phones.Any(x => x.phone == entity.phone))
+                return 501;
+
             _context.Phones.Add(entity);
             return await _context.SaveChangesAsync();
         }
