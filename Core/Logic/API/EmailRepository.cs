@@ -29,9 +29,10 @@ namespace Core.Logic
             _context.Entry(entity).State = EntityState.Modified;
             return await _context.SaveChangesAsync();
         }
-        public async Task<IReadOnlyList<Email>> GetAllAsync()
+        public async Task<IReadOnlyList<Email>> GetAllAsync(int? studentId = null)
         {
             return await _context.Emails
+                .Where(x=> x.StudentId.Equals(studentId))
                .ToListAsync();
         }
 

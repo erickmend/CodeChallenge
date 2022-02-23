@@ -1,0 +1,56 @@
+﻿
+@model List<Domain.DTOs.Email.EmailOutput>
+
+<div class="container col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex p-3 justify-content-end ">
+    <a href="/Email/Create/@ViewBag.StudentId" class="btn openSans mr-2" style="background-color: #73b040; color:white">Crear nuevo</a>
+</div>
+
+
+<div class="container col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pb-4" style="background-color:white">
+    <div class="pt-4">
+        <h3>Estudiantes</h3>
+    </div>
+
+    <table id="example" class="table  table-bordered table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl" style="font-size:12px">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Type</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.email</td>
+                    <td>@item.EmailType.ToString()</td>
+
+                    <td style="text-align: center;">
+                        <div class="dropdown">
+                            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="ft-settings"></span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/Home/Detail/@item.Id">
+                                    <img src="https://img.icons8.com/material-rounded/24/000000/eye-unchecked.png" /> Ver
+                                </a>
+                                <a class="dropdown-item" href="/Home/Edit/@item.Id">
+                                    <img src="https://img.icons8.com/material-outlined/24/000000/edit--v1.png" /> Editar
+                                </a>
+                                <a class="dropdown-item" href="/Home/Delete/@item.Id">
+                                    <img src="https://img.icons8.com/material/24/000000/filled-trash.png" /> Eliminar
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+
+</div>

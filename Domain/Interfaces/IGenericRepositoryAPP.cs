@@ -10,7 +10,7 @@ namespace Domain.Interfaces
     public interface IGenericRepositoryAPP<T>
     {
         Task<ApiResponse> GetByIdAsync(int id);
-        Task<ApiResponse> GetAllAsync();
+        Task<ApiResponse> GetAllAsync(int? studentId = null);
         Task<ApiResponse> Add(T entity);
         Task<ApiResponse> Update(int id,T dto);
         Task<ApiResponse> Delete(int id);

@@ -9,7 +9,7 @@ namespace Domain.Interfaces
     public interface IGenericRepository<T>
     {
         Task<T> GetByIdAsync(int id);
-        Task<IReadOnlyList<T>> GetAllAsync();
+        Task<IReadOnlyList<T>> GetAllAsync(int ? studentId= null);
         Task<int> Add(T entity);
         Task<int> Update(T entity);
         Task<int> Delete(int id);

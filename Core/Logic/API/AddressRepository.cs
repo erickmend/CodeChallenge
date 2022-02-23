@@ -30,9 +30,10 @@ namespace Core.Logic
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<IReadOnlyList<Address>> GetAllAsync()
+        public async Task<IReadOnlyList<Address>> GetAllAsync(int? studentId = null)
         {
             return await _context.Addresses
+                .Where(x=> x.StudentId.Equals(studentId))
                .ToListAsync();
         }
 

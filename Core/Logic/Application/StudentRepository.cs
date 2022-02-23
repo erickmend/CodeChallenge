@@ -34,7 +34,7 @@ namespace Core.Logic.Application
             var result = await Execute(endpoint, null , Method.DELETE);
             return GetResult(result,false);
         }
-        public async Task<ApiResponse> GetAllAsync()
+        public async Task<ApiResponse> GetAllAsync(int? studentId = null)
         {
             string endpoint = $"Student/";
             var result = await Execute(endpoint, null, Method.GET);

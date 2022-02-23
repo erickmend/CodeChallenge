@@ -31,7 +31,7 @@ namespace Core.Logic
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<IReadOnlyList<Student>> GetAllAsync()
+        public async Task<IReadOnlyList<Student>> GetAllAsync(int? studentId = null)
         {
             return await _context.Students
                 .Include(x=> x.Addresses)

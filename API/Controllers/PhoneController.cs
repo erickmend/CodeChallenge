@@ -24,10 +24,10 @@ namespace API.Controllers
             _studentRepository = studentRepository;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<PhoneOutput>>> GetList()
+        [HttpGet("Student/{studentId}")]
+        public async Task<ActionResult<List<PhoneOutput>>> GetList(int studentId)
         {
-            var entities = await _phoneRepository.GetAllAsync();
+            var entities = await _phoneRepository.GetAllAsync(studentId);
             var output = entities.Select(x => x.ToOutput()).ToList();
             return Ok(output);
         }
