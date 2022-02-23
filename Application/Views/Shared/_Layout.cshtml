@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="~/css/sweetalert2.css" rel="stylesheet" />
     <script src="~/js/sweetalert2.js"></script>
+
+    <!-- BEGIN: TABLE CSS-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+    <!-- END: TABLE CCS-->
+
+    @RenderSection("Styles", required: false)
+
 </head>
 <body>
     <header>
@@ -44,6 +51,16 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- BEGIN: TABLE JS-->
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+    <!--END : TABLE JS-->
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
