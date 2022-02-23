@@ -1,0 +1,54 @@
+﻿@model Domain.DTOs.Address.AddressOutput
+
+
+<div class="row justify-content-center ">
+
+    <form class="row col-11 d-flex justify-content-around mt-3" action="/Address/DeleteItem?studentId=@ViewBag.StudentId&id=@Model.Id" method="post" style="background-color:white" enctype="multipart/form-data">
+        <div class="col-md-5">
+            <h3>Eliminar Dirección</h3>
+
+            <label class="label_text openSans" asp-for="AddressLine"></label>
+            <div class="input-group mb-2">
+                <div class="col-12 px-0">
+                    <input type="text" class="form-control" asp-for="AddressLine" value="@Model?.AddressLine" disabled maxlength="30">
+                </div>
+                <span asp-validation-for="AddressLine" class="text-danger"></span>
+            </div>
+            <label class="label_text openSans" asp-for="City"></label>
+            <div class="input-group mb-2">
+                <div class="col-12 px-0">
+                    <input type="text" class="form-control" asp-for="City" value="@Model?.City" disabled maxlength="30">
+                </div>
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <label class="label_text openSans" asp-for="State"></label>
+            <div class="input-group mb-2">
+                <div class="col-12 px-0">
+                    <input type="text" class="form-control" asp-for="State" value="@Model?.State" disabled maxlength="30">
+                </div>
+                <span asp-validation-for="State" class="text-danger"></span>
+            </div>
+            <label class="label_text openSans" asp-for="ZipPostCode"></label>
+            <div class="input-group mb-2">
+                <div class="col-12 px-0">
+                    <input type="text" class="form-control" asp-for="ZipPostCode" value="@Model?.ZipPostCode" disabled maxlength="30">
+                </div>
+                <span asp-validation-for="ZipPostCode" class="text-danger"></span>
+            </div>
+
+            <div class="input-group mb-2 d-flex  justify-content-end ">
+                <a href="/Address/Index?studentId=@ViewBag.StudentId" class="btn openSans mr-2" style="background-color: #F5718A; color:white; width:150px;">Cancelar</a>
+                <button type="submit" value="submit request" class="btn openSans" style=" background-color: #76B043; color: white; width:150px;  ">Eliminar</button>
+            </div>
+        </div>
+
+        <div class="col-md-5 ">
+
+
+
+        </div>
+        <div class="input-group mb-1">
+            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        </div>
+    </form>
+</div>
