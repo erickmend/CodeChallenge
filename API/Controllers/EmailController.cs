@@ -45,7 +45,8 @@ namespace API.Controllers
             return Ok(output);
         }
 
-        [HttpPost]
+        [HttpPost("{studentId}")]
+
         public async Task<ActionResult<EmailOutput>> Post(int studentId, EmailInput dto)
         {
             var student = await _studentRepository.GetByIdAsync(studentId);

@@ -16,7 +16,7 @@ namespace Core.Logic.Application
     public class StudentRepository : Requestor, IGenericRepositoryAPP<StudentInput>
     {
 
-        public async Task<ApiResponse> Add(StudentInput dto)
+        public async Task<ApiResponse> Add(StudentInput dto, int? studentId = null)
         {
             string endpoint = $"Student/";
             var result = await Execute(endpoint, dto, Method.POST);

@@ -16,46 +16,54 @@ namespace Core.Logic.Application
     public class EmailRepository : Requestor, IGenericRepositoryAPP<EmailInput>
     {
 
-        public async Task<ApiResponse> Add(EmailInput dto)
+        public async Task<ApiResponse> Add(EmailInput dto, int? studentId = null)
         {
-            string endpoint = $"Student/";
+            string endpoint = $"Email/{studentId}";
             var result = await Execute(endpoint, dto, Method.POST);
-            return GetResult(result);
+            return GetResult(result, false);
         }
         public async Task<ApiResponse> Update(int id, EmailInput dto)
         {
             string endpoint = $"Email/{id}";
             var result = await Execute(endpoint, dto, Method.PUT);
-            return GetResult(result);
+            return GetResult(result, false);
         }
         public async Task<ApiResponse> Delete(int id)
         {
             string endpoint = $"Email/{id}";
             var result = await Execute(endpoint, null, Method.DELETE);
-            return GetResult(result);
+            return GetResult(result, false);
         }
         public async Task<ApiResponse> GetAllAsync(int? studentId = null)
         {
-            string endpoint = $"Email//Student/{studentId}";
+            string endpoint = $"Email/Student/{studentId}";
             var result = await Execute(endpoint, null, Method.GET);
-            return GetResult(result);
+            return GetResult(result, true);
         }
         public async Task<ApiResponse> GetByIdAsync(int id)
         {
             string endpoint = $"Email/{id}";
             var result = await Execute(endpoint, null, Method.GET);
-            return GetResult(result);
+            return GetResult(result, false);
         }
 
 
 
 
-        private ApiResponse GetResult(IRestResponse restResponse)
+        private ApiResponse GetResult(IRestResponse restResponse, bool isList)
         {
             if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                var output = JsonConvert.DeserializeObject<EmailOutput>(restResponse.Content);
-                return new ApiResponse { IsCompleted = true, Result = output };
+                if (isList)
+                {
+                    var output = JsonConvert.DeserializeObject<List<EmailOutput>>(restResponse.Content);
+                    return new ApiResponse { IsCompleted = true, Result = output };
+                }
+                else
+                {
+                    var output = JsonConvert.DeserializeObject<EmailOutput>(restResponse.Content);
+                    return new ApiResponse { IsCompleted = true, Result = output };
+                }
             }
             else
             {

@@ -16,46 +16,53 @@ namespace Core.Logic.Application
     public class PhoneRepository : Requestor, IGenericRepositoryAPP<PhoneInput>
     {
 
-        public async Task<ApiResponse> Add(PhoneInput dto)
+        public async Task<ApiResponse> Add(PhoneInput dto, int? studentId = null)
         {
-            string endpoint = $"Phone/";
+            string endpoint = $"Phone/{studentId}";
             var result = await Execute(endpoint, dto, Method.POST);
-            return GetResult(result);
+            return GetResult(result, false);
         }
         public async Task<ApiResponse> Update(int id, PhoneInput dto)
         {
             string endpoint = $"Phone/{id}";
             var result = await Execute(endpoint, dto, Method.PUT);
-            return GetResult(result);
+            return GetResult(result, false);
         }
         public async Task<ApiResponse> Delete(int id)
         {
             string endpoint = $"Phone/{id}";
             var result = await Execute(endpoint, null, Method.DELETE);
-            return GetResult(result);
+            return GetResult(result, false);
         }
         public async Task<ApiResponse> GetAllAsync(int? studentId = null)
         {
             string endpoint = $"Phone/Student/{studentId}";
             var result = await Execute(endpoint, null, Method.GET);
-            return GetResult(result);
+            return GetResult(result, true);
         }
         public async Task<ApiResponse> GetByIdAsync(int id)
         {
             string endpoint = $"Phone/{id}";
             var result = await Execute(endpoint, null, Method.GET);
-            return GetResult(result);
+            return GetResult(result, false);
         }
 
 
 
-
-        private ApiResponse GetResult(IRestResponse restResponse)
+        private ApiResponse GetResult(IRestResponse restResponse, bool isList)
         {
             if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                var output = JsonConvert.DeserializeObject<PhoneOutput>(restResponse.Content);
-                return new ApiResponse { IsCompleted = true, Result = output };
+                if (isList)
+                {
+                    var output = JsonConvert.DeserializeObject<List<PhoneOutput>>(restResponse.Content);
+                    return new ApiResponse { IsCompleted = true, Result = output };
+                }
+                else
+                {
+                    var output = JsonConvert.DeserializeObject<PhoneOutput>(restResponse.Content);
+                    return new ApiResponse { IsCompleted = true, Result = output };
+                }
             }
             else
             {

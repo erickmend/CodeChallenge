@@ -21,5 +21,11 @@ namespace Domain.DTOs.Student
         public List<EmailOutput> Emails { get; set; }
         public List<AddressOutput> Addresses { get; set; }
         public List<PhoneOutput> Phones { get; set; }
+
+
+        public string GetFullName()
+        {
+            return FirstName + " "+ LastName +" "+ MiddleName;
+        }
     }
 }

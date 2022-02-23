@@ -11,7 +11,7 @@ namespace Domain.Interfaces
     {
         Task<ApiResponse> GetByIdAsync(int id);
         Task<ApiResponse> GetAllAsync(int? studentId = null);
-        Task<ApiResponse> Add(T entity);
+        Task<ApiResponse> Add(T entity, int? studentId = null);
         Task<ApiResponse> Update(int id,T dto);
         Task<ApiResponse> Delete(int id);
     }

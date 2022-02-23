@@ -45,7 +45,7 @@ namespace API.Controllers
             return Ok(output);
         }
 
-        [HttpPost]
+        [HttpPost("{studentId}")]
         public async Task<ActionResult<AddressOutput>> Post(int studentId, AddressInput dto)
         {
             var student = await _studentRepository.GetByIdAsync(studentId);

@@ -1,0 +1,42 @@
+﻿@model Domain.DTOs.Email.EmailOutput
+
+
+<div class="row justify-content-center ">
+
+    <form class="row col-11 d-flex justify-content-around mt-3" action="/Email/DeleteItem?studentId=@ViewBag.StudentId&id=@Model.Id" method="post" style="background-color:white" enctype="multipart/form-data">
+
+        <div class="col-md-5">
+            <h3>Eliminar correo</h3>
+
+            <label class="label_text openSans" asp-for="email"></label>
+            <div class="input-group mb-2">
+                <div class="col-12 px-0">
+                    <input type="text" class="form-control" asp-for="email" value="@Model?.email" disabled maxlength="30">
+                </div>
+                <span asp-validation-for="email" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 mb-2">
+                    <label class="label_text openSans mt-3">Género</label>
+                    @Html.DropDownList("EmailType", ViewBag.EmailTypes as SelectList, "-- Tipo --", new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+
+
+            <div class="input-group mb-2 d-flex  justify-content-end  ">
+                <a href="/Email/Index?studentId=@ViewBag.StudentId" class="btn openSans mr-2" style="background-color: #F5718A; color:white; width:150px;">Cancelar</a>
+                <button type="submit" value="submit request" class="btn openSans" style=" background-color: #76B043; color: white; width:150px;  ">Eliminar</button>
+            </div>
+        </div>
+
+        <div class="col-md-5 ">
+
+
+
+        </div>
+        <div class="input-group mb-1">
+            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        </div>
+    </form>
+</div>

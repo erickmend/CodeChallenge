@@ -21,43 +21,61 @@
                 <th>FirstName</th>
                 <th>LastName</th>
                 <th>MiddleName</th>
-                <th>Emails</th>
-                <th>Addresses</th>
-                <th>Phones</th>
+                <th>No. Emails</th>
+                <th>No. Addresses</th>
+                <th>No. Phones</th>
+                <th>Propiedades</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>@item.Id</td>
-                    <td>@item.FirstName</td>
-                    <td>@item.LastName</td>
-                    <td>@item.MiddleName</td>
-                    <td>@item.Emails.Count()</td>
-                    <td>@item.Addresses.Count()</td>
-                    <td>@item.Phones.Count()</td>
-
-                    <td style="text-align: center;">
-                        <div class="dropdown">
-                            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="ft-settings"></span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="/Home/Detail/@item.Id">
-                                    <img src="https://img.icons8.com/material-rounded/24/000000/eye-unchecked.png" /> Ver
-                                </a>
-                                <a class="dropdown-item" href="/Home/Edit/@item.Id">
-                                    <img src="https://img.icons8.com/material-outlined/24/000000/edit--v1.png" /> Editar
-                                </a>
-                                <a class="dropdown-item" href="/Home/Delete/@item.Id">
-                                    <img src="https://img.icons8.com/material/24/000000/filled-trash.png" /> Eliminar
-                                </a>
-                            </div>
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.MiddleName</td>
+                <td>@item.Emails.Count()</td>
+                <td>@item.Addresses.Count()</td>
+                <td>@item.Phones.Count()</td>
+                <td style="text-align: center;">
+                    <div class="dropdown">
+                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="ft-settings"></span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/Email/Index?studentId=@item.Id">
+                                <img src="https://img.icons8.com/material-sharp/24/000000/mail.png" />Emails
+                            </a>
+                            <a class="dropdown-item" href="/Phone/Index?studentId=@item.Id">
+                                <img src="https://img.icons8.com/material-outlined/24/000000/ringing-phone.png" />Telefonos
+                            </a>
+                            <a class="dropdown-item" href="/Address/Index?studentId=@item.Id">
+                                <img src="https://img.icons8.com/external-those-icons-fill-those-icons/24/000000/external-map-maps-and-locations-those-icons-fill-those-icons-1.png" />Direcciones
+                            </a>
                         </div>
-                    </td>
-                </tr>
+                    </div>
+                </td>
+                <td style="text-align: center;">
+                    <div class="dropdown">
+                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="ft-settings"></span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/Home/Detail/@item.Id">
+                                <img src="https://img.icons8.com/material-rounded/24/000000/eye-unchecked.png" /> Ver
+                            </a>
+                            <a class="dropdown-item" href="/Home/Edit/@item.Id">
+                                <img src="https://img.icons8.com/material-outlined/24/000000/edit--v1.png" /> Editar
+                            </a>
+                            <a class="dropdown-item" href="/Home/Delete/@item.Id">
+                                <img src="https://img.icons8.com/material/24/000000/filled-trash.png" /> Eliminar
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
             }
         </tbody>
 

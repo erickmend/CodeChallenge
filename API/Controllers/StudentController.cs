@@ -43,7 +43,8 @@ namespace API.Controllers
             return Ok(output);
         }
 
-        [HttpPost]
+        [HttpPost("{studentId}")]
+
         public async Task<ActionResult<StudentOutput>> Post(StudentInput dto)
         {
             var entity = new Student(dto);
