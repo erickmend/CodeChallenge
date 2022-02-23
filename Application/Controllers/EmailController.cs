@@ -59,13 +59,13 @@ namespace Application.Controllers
             if (!ModelState.IsValid)
             {
                 return View(dto)
-                    .WithDanger("Error", "Porfavor llena los campos faltantes", "Aceptar");
+                .WithDanger("Error", "Porfavor llena los campos faltantes", "Aceptar");
             }
 
-            var response = await _emailRepository.Add(dto,studentId);
+            var response = await _emailRepository.Add(dto, studentId);
             if (response.IsCompleted)
             {
-                return RedirectToAction("Index", new {studentId= studentId })
+                return RedirectToAction("Index", new { studentId = studentId })
                     .WithSuccess("Éxito", "Correo creado", "Aceptar");
             }
 
@@ -76,7 +76,7 @@ namespace Application.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int studentId,int id)
+        public async Task<IActionResult> Edit(int studentId, int id)
         {
             ViewBag.StudentId = studentId;
 
@@ -96,7 +96,7 @@ namespace Application.Controllers
 
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(int studentId,int id, EmailInput dto)
+        public async Task<IActionResult> Edit(int studentId, int id, EmailInput dto)
         {
             ViewBag.StudentId = studentId;
 
@@ -105,8 +105,8 @@ namespace Application.Controllers
             {
                 var outputError = new EmailOutput
                 {
-                     EmailType= dto.EmailType,
-                      email = dto.email,
+                    EmailType = dto.EmailType,
+                    email = dto.email,
                     Id = id
                 };
 
@@ -125,7 +125,7 @@ namespace Application.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Detail(int studentId,int id)
+        public async Task<IActionResult> Detail(int studentId, int id)
         {
             ViewBag.StudentId = studentId;
 
@@ -146,7 +146,7 @@ namespace Application.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Delete(int studentId,int id)
+        public async Task<IActionResult> Delete(int studentId, int id)
         {
             ViewBag.StudentId = studentId;
 
@@ -166,7 +166,7 @@ namespace Application.Controllers
 
         }
         [HttpPost]
-        public async Task<IActionResult> DeleteItem(int studentId,int id)
+        public async Task<IActionResult> DeleteItem(int studentId, int id)
         {
             ViewBag.StudentId = studentId;
 

@@ -35,6 +35,7 @@
                 <div class="col-md-12 mb-2">
                     <label class="label_text openSans mt-3">Género</label>
                     @Html.DropDownList("Gender", ViewBag.Genders as SelectList, "-- Género --", new { @class = "form-control" })
+                    <span asp-validation-for="Gender" class="text-danger"></span>
                 </div>
             </div>
 
