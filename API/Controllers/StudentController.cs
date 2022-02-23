@@ -43,7 +43,7 @@ namespace API.Controllers
             return Ok(output);
         }
 
-        [HttpPost("{studentId}")]
+        [HttpPost]
 
         public async Task<ActionResult<StudentOutput>> Post(StudentInput dto)
         {
