@@ -20,42 +20,50 @@ namespace Core.Logic.Application
         {
             string endpoint = $"Student/";
             var result = await Execute(endpoint, dto, Method.POST);
-            return GetResult(result);
+            return GetResult(result,false);
         }
         public async Task<ApiResponse> Update(int id, StudentInput dto)
         {
             string endpoint = $"Student/{id}";
             var result = await Execute(endpoint, dto, Method.PUT);
-            return GetResult(result);
+            return GetResult(result,false);
         }
         public async Task<ApiResponse> Delete(int id)
         {
             string endpoint = $"Student/{id}";
             var result = await Execute(endpoint, null , Method.DELETE);
-            return GetResult(result);
+            return GetResult(result,false);
         }
         public async Task<ApiResponse> GetAllAsync()
         {
             string endpoint = $"Student/";
             var result = await Execute(endpoint, null, Method.GET);
-            return GetResult(result);
+            return GetResult(result,true);
         }
         public async Task<ApiResponse> GetByIdAsync(int id)
         {
             string endpoint = $"Student/{id}";
             var result = await Execute(endpoint,null, Method.GET);
-            return GetResult(result);
+            return GetResult(result, false);
         }
 
 
 
 
-        private ApiResponse GetResult(IRestResponse restResponse)
+        private ApiResponse GetResult(IRestResponse restResponse , bool isList)
         {
             if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                var output = JsonConvert.DeserializeObject<StudentOutput>(restResponse.Content);
-                return new ApiResponse { IsCompleted = true, Result = output };
+                if (isList)
+                {
+                    var output = JsonConvert.DeserializeObject<List<StudentOutput>>(restResponse.Content);
+                    return new ApiResponse { IsCompleted = true, Result = output };
+                }
+                else
+                {
+                    var output = JsonConvert.DeserializeObject<StudentOutput>(restResponse.Content);
+                    return new ApiResponse { IsCompleted = true, Result = output };
+                }
             }
             else
             {
