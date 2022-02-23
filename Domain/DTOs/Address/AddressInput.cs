@@ -20,7 +20,7 @@ namespace Domain.DTOs.Address
         public string City { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido")]
-        [Range(0, int.MaxValue, ErrorMessage = "Ingresa solo números")]
+        [Range(0, double.MaxValue, ErrorMessage = "Ingresa solo números")]
         [StringLength(45, MinimumLength = 1, ErrorMessage = "El Máximo es de 45 carateres")]
         [Display(Name = "Código postal")]
         public string ZipPostCode { get; set; }

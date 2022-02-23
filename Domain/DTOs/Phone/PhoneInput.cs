@@ -12,7 +12,7 @@ namespace Domain.DTOs.Phone
     {
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [StringLength(30, MinimumLength = 1, ErrorMessage = "El Máximo es de 30 carateres")]
-        [Range(0, int.MaxValue, ErrorMessage = "Ingresa solo números")]
+        [Range(0, double.MaxValue, ErrorMessage = "Ingresa solo números")]
         [Display(Name = "Teléfono")]
         public string phone { get;   set; }
 
